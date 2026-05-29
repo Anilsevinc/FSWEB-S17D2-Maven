@@ -4,6 +4,7 @@ import com.workintech.s17d2.model.Developer;
 import com.workintech.s17d2.tax.Taxable;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class DeveloperController {
 
     private final Taxable taxable;
 
-    private Map<Integer, Developer> developers;
+    public Map<Integer, Developer> developers;
 
     @Autowired
     public DeveloperController(Taxable taxable) {
@@ -50,6 +51,7 @@ public class DeveloperController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Developer addDeveloper(@RequestBody Developer developer) {
 
         Developer newDeveloper;
@@ -64,8 +66,7 @@ public class DeveloperController {
                     new JuniorDeveloper(
                             developer.getId(),
                             developer.getName(),
-                            salary,
-                            developer.getExperience());
+                            salary);
 
         } else if (developer.getExperience() == Experience.MID) {
 
@@ -77,8 +78,7 @@ public class DeveloperController {
                     new MidDeveloper(
                             developer.getId(),
                             developer.getName(),
-                            salary,
-                            developer.getExperience());
+                            salary);
 
         } else {
 
@@ -90,8 +90,7 @@ public class DeveloperController {
                     new SeniorDeveloper(
                             developer.getId(),
                             developer.getName(),
-                            salary,
-                            developer.getExperience());
+                            salary);
         }
 
         developers.put(newDeveloper.getId(), newDeveloper);
