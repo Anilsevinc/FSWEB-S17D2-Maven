@@ -1,4 +1,4 @@
-package com.workintech.model;
+package com.workintech.s17d2.model;
 
 public class Developer {
 
