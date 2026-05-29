@@ -18,6 +18,8 @@ import com.workintech.s17d2.model.Experience;
 import com.workintech.s17d2.model.JuniorDeveloper;
 import com.workintech.s17d2.model.MidDeveloper;
 import com.workintech.s17d2.model.SeniorDeveloper;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 @RestController
 @RequestMapping("/developers")
@@ -95,5 +97,20 @@ public class DeveloperController {
         developers.put(newDeveloper.getId(), newDeveloper);
 
         return newDeveloper;
+    }
+    @PutMapping("/{id}")
+    public Developer updateDeveloper(
+            @PathVariable Integer id,
+            @RequestBody Developer developer) {
+
+        developers.put(id, developer);
+
+        return developer;
+    }
+
+    @DeleteMapping("/{id}")
+    public Developer deleteDeveloper(@PathVariable Integer id) {
+
+        return developers.remove(id);
     }
 }
